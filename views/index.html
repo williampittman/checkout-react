@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+  </head>
+  <body>
+    <h1>PayPal Checkout JavaScript SDK</h1>
+    <div id="root" style="width: 20%"></div>
+
+    <script type="text/babel">
+      let PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+
+      class Checkout extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        createOrder(data, actions) {
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: {
+                  value: "1.00"
+                }
+              }
+            ]
+          });
+        }
+
+        onApprove(data, actions) {
+          return actions.order.capture().then(response => {
+            console.log(response);
+          });
+        }
+
+        onError(err) {
+          return console.error(err);
+        }
+
+        render() {
+          return (
+            <PayPalButton
+              createOrder={(data, actions) => this.createOrder(data, actions)}
+              onApprove={(data, actions) => this.onApprove(data, actions)}
+              onError={err => this.onError(err)}
+            />
+          );
+        }
+      }
+
+      ReactDOM.render(<Checkout />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

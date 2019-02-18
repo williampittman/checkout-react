@@ -1,0 +1,17 @@
+{
+  "name": "checkout-react",
+  "version": "1.0.0",
+  "description": "paypal jsSDK react implementation",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "WP",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  }
+}
